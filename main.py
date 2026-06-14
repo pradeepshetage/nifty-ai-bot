@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("NIFTY QUOTE TEST")
+print("LIVE NIFTY TEST")
 
 access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -11,6 +11,14 @@ configuration.access_token = access_token
 api_client = upstox_client.ApiClient(configuration)
 
 try:
-    print([x for x in dir(upstox_client.MarketQuoteApi) if not x.startswith("_")])
+    quote_api = upstox_client.MarketQuoteApi(api_client)
+
+    response = quote_api.ltp(
+        "NSE_INDEX|Nifty 50",
+        "2.0"
+    )
+
+    print(response)
+
 except Exception as e:
-    print("ERROR:", e)
+    print("ERROR:", str(e))
