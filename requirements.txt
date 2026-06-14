@@ -4,3 +4,4 @@ ta
 websocket-client
 requests
 upstox-python-sdk
+upstox-python-sdk
