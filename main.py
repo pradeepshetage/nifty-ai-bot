@@ -1,16 +1,9 @@
 import os
 
-print("DURVANG TEST 123")
+print("UPSTOX CONNECTION TEST")
 
 api_key = os.getenv("UPSTOX_API_KEY")
 access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
 
-if api_key:
-    print("API Key Loaded Successfully")
-else:
-    print("API Key Missing")
-
-if access_token:
-    print("Access Token Loaded Successfully")
-else:
-    print("Access Token Missing")
+print("API Key Loaded:", bool(api_key))
+print("Access Token Loaded:", bool(access_token))
