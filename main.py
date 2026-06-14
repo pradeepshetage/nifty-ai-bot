@@ -11,3 +11,5 @@ configuration.access_token = access_token
 api_client = upstox_client.ApiClient(configuration)
 
 print("SDK Connected Successfully")
+
+print("Access Token Length:", len(access_token))
