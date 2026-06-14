@@ -13,7 +13,7 @@ api_client = upstox_client.ApiClient(configuration)
 try:
     user_api = upstox_client.UserApi(api_client)
 
-    response = user_api.get_profile()
+    response = user_api.get_profile("2.0")
 
     print(response)
 
