@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("USER API METHODS TEST")
+print("PROFILE FETCH TEST")
 
 access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -10,6 +10,12 @@ configuration.access_token = access_token
 
 api_client = upstox_client.ApiClient(configuration)
 
-user_api = upstox_client.UserApi(api_client)
+try:
+    user_api = upstox_client.UserApi(api_client)
 
-print(dir(user_api))
+    response = user_api.get_profile()
+
+    print(response)
+
+except Exception as e:
+    print("ERROR:", str(e))
