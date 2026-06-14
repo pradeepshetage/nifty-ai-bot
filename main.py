@@ -10,5 +10,4 @@ configuration.access_token = access_token
 
 api_client = upstox_client.ApiClient(configuration)
 
-try:
-    user_api = upst
+print("SDK Connected Successfully")
