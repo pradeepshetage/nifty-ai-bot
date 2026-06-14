@@ -1,6 +1,6 @@
 import os
 
-print("Nifty AI Bot Started")
+print("DURVANG TEST 123")
 
 api_key = os.getenv("UPSTOX_API_KEY")
 access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
