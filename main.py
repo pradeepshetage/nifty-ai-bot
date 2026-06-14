@@ -1,3 +1,5 @@
+import time
+
 print("UPSTOX SDK TEST")
 
 try:
@@ -5,3 +7,5 @@ try:
     print("Upstox SDK Installed Successfully")
 except Exception as e:
     print("SDK Error:", e)
+
+time.sleep(60)
