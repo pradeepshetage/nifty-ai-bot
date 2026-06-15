@@ -25,7 +25,7 @@ try:
 
 print("HISTORICAL SUCCESS")
 print(response)
-    )
+    
 
     print("CANDLE SUCCESS")
     print("CANDLE DATA")
