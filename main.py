@@ -8,7 +8,8 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-order_api = upstox_client.OrderApi(api_client)
+print("MODEL TEST")
 
-print("ORDER API TEST")
-print(dir(order_api))
+for x in dir(upstox_client):
+    if "Order" in x:
+        print(x)
