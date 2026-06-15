@@ -20,7 +20,7 @@ try:
     )
 
     print("SUCCESS")
-    print(type(response))
+    print(dir(response))
 
 except Exception as e:
     print("ERROR")
