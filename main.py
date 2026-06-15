@@ -1,22 +1,13 @@
-import inspect
+import os
 import upstox_client
 
-from upstox_client.rest import ApiException
+ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
-try:
-    response = history_api.get_intra_day_candle_data(
-        "NSE_INDEX|Nifty 50",
-        "5minute",
-        "2.0"
-    )
+print("TOKEN FOUND:", ACCESS_TOKEN is not None)
 
-    print("SUCCESS")
-    print(response)
+configuration = upstox_client.Configuration()
+configuration.access_token = ACCESS_TOKEN
 
-except ApiException as e:
-    print("ERROR")
-    print(e)
+api_client = upstox_client.ApiClient(configuration)
 
-except Exception as e:
-    print("ERROR")
-    print(str(e))
+print(dir(upstox_client))
