@@ -1,5 +1,8 @@
+import inspect
 import upstox_client
 
-print("OPTIONS API")
+print("OPTION CHAIN SIGNATURE")
+print(inspect.signature(upstox_client.OptionsApi.get_put_call_option_chain))
 
-print(dir(upstox_client.OptionsApi))
+print("OPTION CONTRACT SIGNATURE")
+print(inspect.signature(upstox_client.OptionsApi.get_option_contracts))
