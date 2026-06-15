@@ -15,7 +15,7 @@ history_api = upstox_client.HistoryApi(api_client)
 try:
     response = history_api.get_intra_day_candle_data(
         "NSE_INDEX|Nifty 50",
-        "5minute",
+        "1minute",
         "2.0"
     )
 
