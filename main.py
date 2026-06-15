@@ -20,6 +20,8 @@ try:
     )
 
     print("CANDLE SUCCESS")
+    print("CANDLE DATA")
+    print(response)
 
 except Exception as e:
     print("CANDLE FAILED")
