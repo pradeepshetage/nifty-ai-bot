@@ -14,21 +14,16 @@ history_api = upstox_client.HistoryApi(api_client)
 
 try:
     print(dir(history_api))
-    
+
     response = history_api.get_historical_candle_data(
-    "NSE_INDEX|Nifty 50",
-    "day",
-    "2026-06-15",
-    "2026-06-01",
-    "2.0"
-)
+        "NSE_INDEX|Nifty 50",
+        "day",
+        "2026-06-15",
+        "2026-06-01",
+        "2.0"
+    )
 
-print("HISTORICAL SUCCESS")
-print(response)
-    
-
-    print("CANDLE SUCCESS")
-    print("CANDLE DATA")
+    print("HISTORICAL SUCCESS")
     print(response)
 
 except Exception as e:
