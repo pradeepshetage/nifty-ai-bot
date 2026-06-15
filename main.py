@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("CANDLE TEST V2")
+print("CANDLE TEST V3")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -20,7 +20,12 @@ try:
     )
 
     print("SUCCESS")
-    print(dir(response))
+    print(response)
+
+    try:
+        print(response.to_dict())
+    except Exception as e:
+        print("to_dict failed:", str(e))
 
 except Exception as e:
     print("ERROR")
