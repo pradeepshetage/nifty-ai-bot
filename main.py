@@ -1,4 +1,4 @@
-import os
+print("CANDLE TEST V1")
 import upstox_client
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
