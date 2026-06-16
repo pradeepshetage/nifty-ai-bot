@@ -1,9 +1,4 @@
-[
-  timestamp,
-  open,
-  high,
-  low,
-  close,
-  volume,
-  oi
-]
+candles = response['data']['candles']
+
+print("TOTAL CANDLES:", len(candles))
+print("FIRST CANDLE:", candles[0])
