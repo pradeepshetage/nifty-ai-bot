@@ -1,6 +1,8 @@
 import os
 import upstox_client
 
+print("CRUDE BOT STARTED")
+
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
 configuration = upstox_client.Configuration()
@@ -19,8 +21,9 @@ try:
     )
 
     print("SUCCESS")
-    print(len(response.data.candles))
+    print("TOTAL CANDLES:", len(response.data.candles))
 
 except Exception as e:
     print("FAILED")
-    print(str(e))
+    print(type(e))
+    print(repr(e))
