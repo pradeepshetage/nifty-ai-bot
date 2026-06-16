@@ -8,8 +8,19 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-instruments_api = upstox_client.InstrumentsApi(api_client)
+history_api = upstox_client.HistoryApi(api_client)
 
-response = instruments_api.search_instrument("CRUDEOIL")
+try:
+    response = history_api.get_historical_candle_data(
+        "MCX_FO|CRUDEOILM",
+        "day",
+        "2025-06-15",
+        "2.0"
+    )
 
-print(response)
+    print("SUCCESS")
+    print(len(response.data.candles))
+
+except Exception as e:
+    print("FAILED")
+    print(str(e))
