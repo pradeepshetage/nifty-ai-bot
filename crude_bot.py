@@ -13,3 +13,10 @@ api_client = upstox_client.ApiClient(configuration)
 history_api = upstox_client.HistoryApi(api_client)
 
 print("UPSTOX CONNECTED")
+
+try:
+    print("CRUDE BOT TEST SUCCESS")
+
+except Exception as e:
+    print("FAILED")
+    print(str(e))
