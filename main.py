@@ -10,6 +10,7 @@ api_client = upstox_client.ApiClient(configuration)
 
 history_api = upstox_client.HistoryApi(api_client)
 
+
 def ema(prices, period):
     multiplier = 2 / (period + 1)
 
@@ -20,6 +21,7 @@ def ema(prices, period):
 
     return ema_value
 
+
 try:
     response = history_api.get_historical_candle_data(
         "NSE_INDEX|Nifty 50",
@@ -28,9 +30,13 @@ try:
         "2.0"
     )
 
-    candles = response.data.candles
+    # Upstox returns newest first, reverse for EMA calculation
+    candles = list(reversed(response.data.candles))
 
     close_prices = [float(candle[4]) for candle in candles]
+
+    print("TOTAL CANDLES:", len(close_prices))
+    print("LATEST CLOSE:", close_prices[-1])
 
     ema20 = ema(close_prices, 20)
     ema50 = ema(close_prices, 50)
@@ -40,8 +46,10 @@ try:
 
     if ema20 > ema50:
         print("BUY CE SIGNAL")
-    else:
+    elif ema20 < ema50:
         print("BUY PE SIGNAL")
+    else:
+        print("NO TRADE")
 
 except Exception as e:
     print("FAILED")
