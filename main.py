@@ -21,8 +21,8 @@ try:
     print("STATUS")
     print(response.status)
 
-    print("DATA")
-    print(response.data)
+    print(type(response.data))
+    print(dir(response.data))
 
 except Exception as e:
     print("FAILED")
