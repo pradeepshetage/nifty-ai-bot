@@ -1,5 +1,6 @@
-import os
 import upstox_client
+
+print(dir(upstox_client))
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
