@@ -1,5 +1,7 @@
+import os
 import upstox_client
 
+print("UPSTOX SDK CLASSES")
 print(dir(upstox_client))
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
@@ -31,10 +33,29 @@ try:
         "2.0"
     )
 
-    # Upstox returns newest first, reverse for EMA calculation
     candles = list(reversed(response.data.candles))
 
     close_prices = [float(candle[4]) for candle in candles]
+
+    print("TOTAL CANDLES:", len(close_prices))
+    print("LATEST CLOSE:", close_prices[-1])
+
+    ema20 = ema(close_prices, 20)
+    ema50 = ema(close_prices, 50)
+
+    print("EMA20:", round(ema20, 2))
+    print("EMA50:", round(ema50, 2))
+
+    if ema20 > ema50:
+        print("BUY CE SIGNAL")
+    elif ema20 < ema50:
+        print("BUY PE SIGNAL")
+    else:
+        print("NO TRADE")
+
+except Exception as e:
+    print("FAILED")
+    print(str(e))    close_prices = [float(candle[4]) for candle in candles]
 
     print("TOTAL CANDLES:", len(close_prices))
     print("LATEST CLOSE:", close_prices[-1])
