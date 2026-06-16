@@ -1,7 +1,6 @@
 import os
 import upstox_client
-
-print("CRUDE BOT STARTED")
+import inspect
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -10,28 +9,6 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-history_api = upstox_client.HistoryApi(api_client)
+instruments_api = upstox_client.InstrumentsApi(api_client)
 
-try:
-    response = history_api.get_historical_candle_data(
-        "MCX_FO|CRUDEOILM",
-        "day",
-        "2025-06-15",
-        "2.0"
-    )
-
-    print("SUCCESS")
-
-except Exception as e:
-    print("FAILED")
-    print(type(e))
-
-    if hasattr(e, "body"):
-        print("BODY:")
-        print(e.body)
-
-    if hasattr(e, "status"):
-        print("STATUS:")
-        print(e.status)
-
-    print(e)
+print(inspect.signature(instruments_api.search_instrument))
