@@ -12,5 +12,14 @@ api_client = upstox_client.ApiClient(configuration)
 
 instruments_api = upstox_client.InstrumentsApi(api_client)
 
-print(dir(instruments_api))
-print(instruments_api.search_instrument.__doc__)
+try:
+    response = instruments_api.search_instrument(
+        query="CRUDEOIL"
+    )
+
+    print(response)
+
+except Exception as e:
+    print("FAILED")
+    print(type(e))
+    print(e)
