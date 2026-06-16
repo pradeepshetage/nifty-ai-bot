@@ -8,4 +8,6 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-print(dir(upstox_client))
+instruments_api = upstox_client.InstrumentsApi(api_client)
+
+print(dir(instruments_api))
