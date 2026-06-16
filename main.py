@@ -18,11 +18,16 @@ try:
         "2.0"
     )
 
-    print("STATUS")
-    print(response.status)
+    candles = response.data.candles
 
-    print(type(response.data))
-    print(dir(response.data))
+    print("TOTAL CANDLES:", len(candles))
+
+    if len(candles) > 0:
+        print("FIRST CANDLE:")
+        print(candles[0])
+
+        print("LAST CANDLE:")
+        print(candles[-1])
 
 except Exception as e:
     print("FAILED")
