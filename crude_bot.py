@@ -13,3 +13,5 @@ api_client = upstox_client.ApiClient(configuration)
 history_api = upstox_client.HistoryApi(api_client)
 
 print("UPSTOX CONNECTED")
+
+print(dir(history_api))
