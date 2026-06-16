@@ -21,9 +21,17 @@ try:
     )
 
     print("SUCCESS")
-    print("TOTAL CANDLES:", len(response.data.candles))
 
 except Exception as e:
     print("FAILED")
     print(type(e))
-    print(repr(e))
+
+    if hasattr(e, "body"):
+        print("BODY:")
+        print(e.body)
+
+    if hasattr(e, "status"):
+        print("STATUS:")
+        print(e.status)
+
+    print(e)
