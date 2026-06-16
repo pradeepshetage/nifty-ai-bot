@@ -10,4 +10,6 @@ api_client = upstox_client.ApiClient(configuration)
 
 instruments_api = upstox_client.InstrumentsApi(api_client)
 
-print(dir(instruments_api))
+response = instruments_api.search_instrument("CRUDEOIL")
+
+print(response)
