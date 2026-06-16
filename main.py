@@ -1,8 +1,6 @@
 import os
 import upstox_client
 
-print("TOKEN TEST")
-
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
 configuration = upstox_client.Configuration()
@@ -20,8 +18,11 @@ try:
         "2.0"
     )
 
-    print(type(response))
-    print(dir(response))
+    print("STATUS")
+    print(response.status)
+
+    print("DATA")
+    print(response.data)
 
 except Exception as e:
     print("FAILED")
