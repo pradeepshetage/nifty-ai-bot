@@ -1,4 +1,5 @@
-import inspect
 import upstox_client
 
-print(inspect.signature(upstox_client.OrderApi.place_order))
+for x in dir(upstox_client):
+    if "Order" in x:
+        print(x)
