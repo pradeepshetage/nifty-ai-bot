@@ -1,5 +1,6 @@
 import os
 import upstox_client
+from pprint import pprint
 
 configuration = upstox_client.Configuration()
 configuration.access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
@@ -12,6 +13,4 @@ result = api.search_instrument("CRUDE")
 
 for x in result.data:
     print("================================")
-    print("NAME:", x.name)
-    print("KEY:", x.instrument_key)
-    print("EXPIRY:", x.last_trading_date)
+    pprint(x)
