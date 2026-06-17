@@ -6,9 +6,6 @@ configuration.access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
 
 api_client = upstox_client.ApiClient(configuration)
 
-api = upstox_client.MarketQuoteApi(api_client)
-
-print(api.get_full_market_quote(
-    "NSE_COM|149476",
-    "2.0"
-))
+for name in dir(upstox_client):
+    if "Instrument" in name or "instrument" in name:
+        print(name)
