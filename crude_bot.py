@@ -3,7 +3,7 @@ import upstox_client
 import pandas as pd
 from datetime import datetime
 
-print("CRUDE BOT STABLE V1")
+print("CRUDE JULY TEST")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -17,7 +17,7 @@ history_api = upstox_client.HistoryApi(api_client)
 try:
 
     response = history_api.get_historical_candle_data(
-        "NSE_COM|140106",
+        "NSE_COM|149476",   # CRUDEOILM26JULFUT
         "30minute",
         "2026-06-17",
         "2.0"
@@ -29,45 +29,51 @@ try:
 
     if len(candles) == 0:
         print("NO DATA RETURNED")
-        raise SystemExit
+    else:
 
-    df = pd.DataFrame(
-        candles,
-        columns=[
-            "datetime",
-            "open",
-            "high",
-            "low",
-            "close",
-            "volume",
-            "oi"
-        ]
-    )
+        df = pd.DataFrame(
+            candles,
+            columns=[
+                "datetime",
+                "open",
+                "high",
+                "low",
+                "close",
+                "volume",
+                "oi"
+            ]
+        )
 
-    df = df.sort_values("datetime")
+        df = df.sort_values("datetime")
 
-    print("\nFIRST CANDLE")
-    print(df.iloc[0])
+        print("\nFIRST CANDLE")
+        print(df.iloc[0])
 
-    print("\nLAST CANDLE")
-    print(df.iloc[-1])
+        print("\nLAST CANDLE")
+        print(df.iloc[-1])
 
-    df["EMA20"] = df["close"].ewm(span=20).mean()
-    df["EMA50"] = df["close"].ewm(span=50).mean()
+        print("\nLATEST DATETIME")
+        print(df.iloc[-1]["datetime"])
 
-    price = float(df["close"].iloc[-1])
-    ema20 = float(df["EMA20"].iloc[-1])
-    ema50 = float(df["EMA50"].iloc[-1])
+        print("\nLATEST CLOSE")
+        print(df.iloc[-1]["close"])
 
-    signal = "BUY" if ema20 > ema50 else "SELL"
+        df["EMA20"] = df["close"].ewm(span=20).mean()
+        df["EMA50"] = df["close"].ewm(span=50).mean()
 
-    print("\n----------------------------")
-    print("TIME:", datetime.now())
-    print("PRICE:", round(price, 2))
-    print("EMA20:", round(ema20, 2))
-    print("EMA50:", round(ema50, 2))
-    print("SIGNAL:", signal)
-    print("----------------------------")
+        price = float(df["close"].iloc[-1])
+        ema20 = float(df["EMA20"].iloc[-1])
+        ema50 = float(df["EMA50"].iloc[-1])
+
+        signal = "BUY" if ema20 > ema50 else "SELL"
+
+        print("\n----------------------------")
+        print("TIME:", datetime.now())
+        print("PRICE:", round(price, 2))
+        print("EMA20:", round(ema20, 2))
+        print("EMA50:", round(ema50, 2))
+        print("SIGNAL:", signal)
+        print("----------------------------")
 
 except Exception as e:
     print("ERROR")
