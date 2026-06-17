@@ -12,14 +12,4 @@ crude = df[
 
 print("FOUND:", len(crude))
 
-print(
-    crude[
-        [
-            "instrument_key",
-            "tradingsymbol",
-            "name",
-            "expiry",
-            "instrument_type",
-            "exchange"
-        ]
-    ].head(50).to_string()
+print(crude[["instrument_key", "tradingsymbol"]].head(10))
