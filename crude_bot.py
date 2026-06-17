@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("SEARCH TEST")
+print("CRUDE TEST")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -10,17 +10,26 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-instruments_api = upstox_client.InstrumentsApi(api_client)
+history_api = upstox_client.HistoryApi(api_client)
 
-try:
-    response = instruments_api.search_instrument(
-        query="CRUDEOIL"
-    )
+keys = [
+    "MCX_FO|CRUDEOILM",
+    "MCX_COM|CRUDEOILM",
+    "MCX_FO|CRUDEOIL",
+    "MCX_COM|CRUDEOIL"
+]
 
-    print("SUCCESS")
-    print(response)
+for key in keys:
+    try:
+        response = history_api.get_historical_candle_data(
+            key,
+            "day",
+            "2025-06-15",
+            "2.0"
+        )
 
-except Exception as e:
-    print("FAILED")
-    print(type(e))
-    print(str(e))
+        print("SUCCESS:", key)
+        print(len(response.data.candles))
+
+    except Exception as e:
+        print("FAILED:", key)
