@@ -17,9 +17,11 @@ try:
         query="CRUDEOIL"
     )
 
+    print("SUCCESS")
+    print(type(response))
     print(response)
 
 except Exception as e:
     print("FAILED")
     print(type(e))
-    print(e)
+    print(repr(e))
