@@ -29,7 +29,9 @@ for key in keys:
         )
 
         print("SUCCESS:", key)
-        print(len(response.data.candles))
+        print("CANDLES:", len(response.data.candles))
 
     except Exception as e:
         print("FAILED:", key)
+        print(str(e))
+        print("--------------------------------")
