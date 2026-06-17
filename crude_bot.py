@@ -17,7 +17,7 @@ history_api = upstox_client.HistoryApi(api_client)
 try:
     response = history_api.get_intra_day_candle_data(
         "NSE_COM|140106",
-        "5minute",
+        "1minute",
         "2.0"
     )
 
@@ -25,7 +25,7 @@ try:
 
     df = pd.DataFrame(
         candles,
-        columns=["datetime","open","high","low","close","volume","oi"]
+        columns=["datetime", "open", "high", "low", "close", "volume", "oi"]
     )
 
     df = df.sort_values("datetime")
@@ -41,6 +41,7 @@ try:
 
     print("--------------------------------")
     print("TIME:", datetime.now())
+    print("CANDLES:", len(df))
     print("PRICE:", round(price, 2))
     print("EMA20:", round(ema20, 2))
     print("EMA50:", round(ema50, 2))
