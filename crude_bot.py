@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("LTP TEST")
+print("TOKEN TEST")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -10,19 +10,15 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-api = upstox_client.MarketQuoteApi(api_client)
+api = upstox_client.UserApi(api_client)
 
 try:
-
-    response = api.ltp(
-        "NSE_COM|140106",
-        "2.0"
-    )
+    response = api.get_profile("2.0")
 
     print("SUCCESS")
     print(response)
 
 except Exception as e:
-    print("ERROR")
+    print("FAILED")
     print(type(e))
     print(str(e))
