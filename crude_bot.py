@@ -2,7 +2,7 @@ import os
 import upstox_client
 import pandas as pd
 
-print("JUNE CRUDE TEST")
+print("CRUDE BOT")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -27,7 +27,18 @@ df = pd.DataFrame(
     columns=["datetime","open","high","low","close","volume","oi"]
 )
 
-print("TOTAL CANDLES:", len(df))
+df = df.sort_values("datetime")
 
-print(df[["datetime","open","high","low","close"]].head())
-print(df[["datetime","open","high","low","close"]].tail())
+df["EMA20"] = df["close"].ewm(span=20).mean()
+df["EMA50"] = df["close"].ewm(span=50).mean()
+
+ema20 = df["EMA20"].iloc[-1]
+ema50 = df["EMA50"].iloc[-1]
+
+print("EMA20:", round(ema20,2))
+print("EMA50:", round(ema50,2))
+
+if ema20 > ema50:
+    print("BUY SIGNAL")
+else:
+    print("SELL SIGNAL")
