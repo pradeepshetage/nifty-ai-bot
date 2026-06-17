@@ -8,7 +8,6 @@ df = pd.read_csv(url)
 
 fut = df[
     (df["name"].astype(str).str.contains("CRUDEOILM", case=False, na=False))
-    & (df["instrument_type"] == "FUTCOM")
 ]
 
 print("FOUND:", len(fut))
@@ -18,7 +17,8 @@ print(
         [
             "instrument_key",
             "tradingsymbol",
-            "expiry",
-            "instrument_type"
+            "instrument_type",
+            "expiry"
         ]
-    ].to_string()
+    ].head(20)
+)
