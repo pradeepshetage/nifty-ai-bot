@@ -1,7 +1,9 @@
 import os
 import upstox_client
+import pandas as pd
+from datetime import datetime
 
-print("HISTORICAL INTERVAL TEST")
+print("CRUDE 30M BOT")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -20,8 +22,31 @@ try:
         "2.0"
     )
 
-    print("SUCCESS")
-    print(len(response.data.candles))
+    candles = response.data.candles
+
+    print("TOTAL CANDLES:", len(candles))
+
+    df = pd.DataFrame(
+        candles,
+        columns=["datetime","open","high","low","close","volume","oi"]
+    )
+
+    df = df.sort_values("datetime")
+
+    df["EMA20"] = df["close"].ewm(span=20).mean()
+    df["EMA50"] = df["close"].ewm(span=50).mean()
+
+    price = float(df["close"].iloc[-1])
+    ema20 = float(df["EMA20"].iloc[-1])
+    ema50 = float(df["EMA50"].iloc[-1])
+
+    signal = "BUY" if ema20 > ema50 else "SELL"
+
+    print("TIME:", datetime.now())
+    print("PRICE:", price)
+    print("EMA20:", round(ema20,2))
+    print("EMA50:", round(ema50,2))
+    print("SIGNAL:", signal)
 
 except Exception as e:
     print("ERROR")
