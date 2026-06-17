@@ -1,24 +1,23 @@
-import pandas as pd
+import os
+import upstox_client
 
-print("SEARCHING FUTURES")
+print("CRUDE FUT TEST")
 
-url = "https://assets.upstox.com/market-quote/instruments/exchange/complete.csv.gz"
+ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
-df = pd.read_csv(url)
+configuration = upstox_client.Configuration()
+configuration.access_token = ACCESS_TOKEN
 
-fut = df[
-    (df["name"].astype(str).str.contains("CRUDEOILM", case=False, na=False))
-]
+api_client = upstox_client.ApiClient(configuration)
 
-print("FOUND:", len(fut))
+history_api = upstox_client.HistoryApi(api_client)
 
-print(
-    fut[
-        [
-            "instrument_key",
-            "tradingsymbol",
-            "instrument_type",
-            "expiry"
-        ]
-    ].head(20)
+response = history_api.get_historical_candle_data(
+    "NSE_COM|149476",
+    "day",
+    "2025-06-15",
+    "2.0"
 )
+
+print("SUCCESS")
+print("CANDLES:", len(response.data.candles))
