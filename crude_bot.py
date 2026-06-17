@@ -26,28 +26,46 @@ try:
 
     print("TOTAL CANDLES:", len(candles))
 
-    df = pd.DataFrame(
-        candles,
-        columns=["datetime","open","high","low","close","volume","oi"]
-    )
+    if len(candles) == 0:
+        print("NO CANDLES FOUND")
+    else:
 
-    df = df.sort_values("datetime")
+        df = pd.DataFrame(
+            candles,
+            columns=[
+                "datetime",
+                "open",
+                "high",
+                "low",
+                "close",
+                "volume",
+                "oi"
+            ]
+        )
 
-    df["EMA20"] = df["close"].ewm(span=20).mean()
-    df["EMA50"] = df["close"].ewm(span=50).mean()
+        df = df.sort_values("datetime")
 
-    price = float(df["close"].iloc[-1])
-    ema20 = float(df["EMA20"].iloc[-1])
-    ema50 = float(df["EMA50"].iloc[-1])
+        print("\nLAST 5 CANDLES")
+        print(df[["datetime", "open", "high", "low", "close"]].tail())
 
-    signal = "BUY" if ema20 > ema50 else "SELL"
+        df["EMA20"] = df["close"].ewm(span=20).mean()
+        df["EMA50"] = df["close"].ewm(span=50).mean()
 
-    print("TIME:", datetime.now())
-    print("PRICE:", price)
-    print("EMA20:", round(ema20,2))
-    print("EMA50:", round(ema50,2))
-    print("SIGNAL:", signal)
+        price = float(df["close"].iloc[-1])
+        ema20 = float(df["EMA20"].iloc[-1])
+        ema50 = float(df["EMA50"].iloc[-1])
+
+        signal = "BUY" if ema20 > ema50 else "SELL"
+
+        print("\n--------------------------------")
+        print("TIME:", datetime.now())
+        print("PRICE:", round(price, 2))
+        print("EMA20:", round(ema20, 2))
+        print("EMA50:", round(ema50, 2))
+        print("SIGNAL:", signal)
+        print("--------------------------------")
 
 except Exception as e:
     print("ERROR")
+    print(type(e))
     print(str(e))
