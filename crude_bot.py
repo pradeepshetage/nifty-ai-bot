@@ -15,9 +15,12 @@ history_api = upstox_client.HistoryApi(api_client)
 response = history_api.get_historical_candle_data(
     "NSE_COM|149476",
     "day",
-    "2025-06-15",
+    "2026-06-17",
     "2.0"
 )
 
 print("SUCCESS")
 print("CANDLES:", len(response.data.candles))
+
+if len(response.data.candles) > 0:
+    print(response.data.candles[0])
