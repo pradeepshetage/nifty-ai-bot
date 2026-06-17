@@ -1,15 +1,17 @@
 import os
 import upstox_client
+from pprint import pprint
 
 configuration = upstox_client.Configuration()
 configuration.access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
 
 api_client = upstox_client.ApiClient(configuration)
 
-api = upstox_client.InstrumentsApi(api_client)
+api = upstox_client.MarketQuoteApi(api_client)
 
-result = api.search_instrument("CRUDEOILM")
+response = api.ltp(
+    "MCX_FO|520703",
+    "2.0"
+)
 
-for x in result.data:
-    print("================================")
-    print(x)
+pprint(response.to_dict())
