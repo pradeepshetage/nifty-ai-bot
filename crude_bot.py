@@ -1,7 +1,8 @@
 import os
 import upstox_client
+import pandas as pd
 
-print("CRUDE FUT TEST")
+print("CRUDE EMA TEST")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -19,8 +20,17 @@ response = history_api.get_historical_candle_data(
     "2.0"
 )
 
-print("SUCCESS")
-print("CANDLES:", len(response.data.candles))
+candles = response.data.candles
 
-if len(response.data.candles) > 0:
-    print(response.data.candles[0])
+df = pd.DataFrame(
+    candles,
+    columns=["datetime","open","high","low","close","volume","oi"]
+)
+
+df["EMA20"] = df["close"].ewm(span=20).mean()
+df["EMA50"] = df["close"].ewm(span=50).mean()
+
+print("TOTAL CANDLES:", len(df))
+print("LAST CLOSE:", df["close"].iloc[-1])
+print("EMA20:", round(df["EMA20"].iloc[-1],2))
+print("EMA50:", round(df["EMA50"].iloc[-1],2))
