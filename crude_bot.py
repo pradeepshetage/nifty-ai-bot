@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("LIVE QUOTE TEST")
+print("MARKET API METHODS")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -10,19 +10,6 @@ configuration.access_token = ACCESS_TOKEN
 
 api_client = upstox_client.ApiClient(configuration)
 
-market_api = upstox_client.MarketQuoteApi(api_client)
+api = upstox_client.MarketQuoteApi(api_client)
 
-try:
-
-    response = market_api.get_ltp(
-        "NSE_COM|140106",
-        "2.0"
-    )
-
-    print("SUCCESS")
-    print(response)
-
-except Exception as e:
-    print("ERROR")
-    print(type(e))
-    print(str(e))
+print(dir(api))
