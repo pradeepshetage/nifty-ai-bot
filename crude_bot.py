@@ -1,7 +1,9 @@
 import os
 import upstox_client
+import pandas as pd
+from datetime import datetime
 
-print("INTRADAY DEBUG")
+print("CRUDE BOT LIVE")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -19,8 +21,44 @@ try:
         "2.0"
     )
 
-    print("SUCCESS")
-    print(response)
+    candles = response.data.candles
+
+    print("TIME:", datetime.now())
+    print("TOTAL CANDLES:", len(candles))
+
+    if len(candles) == 0:
+        print("NO MARKET DATA YET")
+    else:
+        df = pd.DataFrame(
+            candles,
+            columns=[
+                "datetime",
+                "open",
+                "high",
+                "low",
+                "close",
+                "volume",
+                "oi"
+            ]
+        )
+
+        df = df.sort_values("datetime")
+
+        df["EMA20"] = df["close"].ewm(span=20).mean()
+        df["EMA50"] = df["close"].ewm(span=50).mean()
+
+        price = float(df["close"].iloc[-1])
+        ema20 = float(df["EMA20"].iloc[-1])
+        ema50 = float(df["EMA50"].iloc[-1])
+
+        signal = "BUY" if ema20 > ema50 else "SELL"
+
+        print("--------------------------------")
+        print("PRICE :", round(price, 2))
+        print("EMA20 :", round(ema20, 2))
+        print("EMA50 :", round(ema50, 2))
+        print("SIGNAL:", signal)
+        print("--------------------------------")
 
 except Exception as e:
     print("ERROR")
