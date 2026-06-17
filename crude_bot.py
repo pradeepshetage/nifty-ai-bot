@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("INTRADAY TEST")
+print("INTRADAY DEBUG")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -20,12 +20,9 @@ try:
     )
 
     print("SUCCESS")
-    print(type(response))
-
-    if hasattr(response, "data"):
-        print("DATA EXISTS")
-        print(response.data)
+    print(response)
 
 except Exception as e:
     print("ERROR")
+    print(type(e))
     print(str(e))
