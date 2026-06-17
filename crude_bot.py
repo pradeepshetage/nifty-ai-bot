@@ -1,7 +1,7 @@
 import os
 import upstox_client
 
-print("LTP TEST")
+print("OHLC TEST")
 
 configuration = upstox_client.Configuration()
 configuration.access_token = os.getenv("UPSTOX_ACCESS_TOKEN")
@@ -11,8 +11,9 @@ api_client = upstox_client.ApiClient(configuration)
 api = upstox_client.MarketQuoteApi(api_client)
 
 try:
-    response = api.ltp(
+    response = api.get_market_quote_ohlc(
         "NSE_COM|140106",
+        "I1",
         "2.0"
     )
 
