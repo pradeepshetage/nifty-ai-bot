@@ -1,12 +1,13 @@
 import os
+import upstox_client
 
-print("TOKEN TEST START")
+ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
-token = os.getenv("UPSTOX_ACCESS_TOKEN")
+configuration = upstox_client.Configuration()
+configuration.access_token = ACCESS_TOKEN
 
-print("TOKEN EXISTS:", token is not None)
+api_client = upstox_client.ApiClient(configuration)
 
-if token:
-    print("TOKEN LENGTH:", len(token))
+api = upstox_client.UserApi(api_client)
 
-print("TOKEN TEST END")
+print(api.get_profile("2.0"))
