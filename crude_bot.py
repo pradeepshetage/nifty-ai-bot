@@ -2,7 +2,7 @@ import os
 import upstox_client
 import pandas as pd
 
-print("CRUDE EMA TEST")
+print("CRUDE DATA CHECK")
 
 ACCESS_TOKEN = os.getenv("UPSTOX_ACCESS_TOKEN")
 
@@ -24,13 +24,13 @@ candles = response.data.candles
 
 df = pd.DataFrame(
     candles,
-    columns=["datetime","open","high","low","close","volume","oi"]
+    columns=["datetime", "open", "high", "low", "close", "volume", "oi"]
 )
 
-df["EMA20"] = df["close"].ewm(span=20).mean()
-df["EMA50"] = df["close"].ewm(span=50).mean()
-
 print("TOTAL CANDLES:", len(df))
-print("LAST CLOSE:", df["close"].iloc[-1])
-print("EMA20:", round(df["EMA20"].iloc[-1],2))
-print("EMA50:", round(df["EMA50"].iloc[-1],2))
+
+print("\nFIRST 5 CANDLES")
+print(df[["datetime", "open", "high", "low", "close"]].head())
+
+print("\nLAST 5 CANDLES")
+print(df[["datetime", "open", "high", "low", "close"]].tail())
