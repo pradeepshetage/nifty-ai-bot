@@ -8,4 +8,4 @@ api_client = upstox_client.ApiClient(configuration)
 
 api = upstox_client.MarketQuoteApi(api_client)
 
-print(dir(api))
+print(api.ltp.__doc__)
